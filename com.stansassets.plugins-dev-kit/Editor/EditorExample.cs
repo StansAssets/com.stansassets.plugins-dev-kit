@@ -2,7 +2,7 @@
 // Editor C# Script Sample
 // -----------------------------------------------------------------------------
 
-namespace StansAssets.PackageSample.Editor
+namespace StansAssets.Plugins.Editor
 {
 	/// <summary>
 	/// Make sure you have documentation for ALL public Package APIs.

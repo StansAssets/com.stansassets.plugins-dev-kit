@@ -7,17 +7,27 @@ namespace StansAssets.Plugins.Editor
 {
     public static class GuidGenerator
     {
-        public static void  RegenerateGuid(string assetPath)
+        const int k_CountCharGiudField = 6;
+
+        public static void RegenerateGuid(string assetPath)
         {
             try
             {
                 var path = $"{assetPath}.meta";
                 var metafile = File.ReadAllText(path);
-                var startGuid = metafile.IndexOf("guid:") + 6;
-                var endGuid = metafile.Substring(startGuid).IndexOf("\n");
-                var oldGuid = metafile.Substring(startGuid, endGuid);
-                metafile = metafile.Replace(oldGuid, Guid.NewGuid().ToString("N"));
-                File.WriteAllText(path, metafile);
+                var startGuid = metafile.IndexOf("guid:");
+                if (startGuid > 0)
+                {
+                    startGuid += k_CountCharGiudField;
+                    var endGuid = metafile.Substring(startGuid).IndexOf("\n");
+                    var oldGuid = metafile.Substring(startGuid, endGuid);
+                    metafile = metafile.Replace(oldGuid, Guid.NewGuid().ToString("N"));
+                    File.WriteAllText(path, metafile);
+                }
+                else
+                {
+                    Debug.LogError("Does not contain guid in the metafile");
+                }
             }
             catch (Exception exception)
             {
@@ -25,13 +35,45 @@ namespace StansAssets.Plugins.Editor
             }
         }
 
-        public static void  RegenerateGuids(IEnumerable<string> assetPaths)
+        public static void RegenerateGuid(IEnumerable<string> assetPaths)
         {
             foreach (var assetPath in assetPaths)
             {
                 RegenerateGuid(assetPath);
             }
+        }
+
+        public static void RegenerateGuidsInFolder(string folderPath, bool recursive = false, bool changeGuidFolder = true)
+        {
+            if (Directory.Exists(folderPath))
+                ProcessDirectory(folderPath, recursive);
             
+            if (changeGuidFolder)
+                RegenerateGuid(folderPath);
+        }
+
+        public static void RegenerateGuidsInFolder(IEnumerable<string> folderPaths, bool recursive = false)
+        {
+            foreach (var assetPath in folderPaths)
+            {
+                RegenerateGuidsInFolder(assetPath, recursive);
+            }
+        }
+
+        static void ProcessDirectory(string targetDirectory, bool recursive = true)
+        {
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            foreach (string fileName in fileEntries)
+                if (!fileName.Contains(".meta"))
+                    RegenerateGuid(fileName);
+
+            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                RegenerateGuid(subdirectory);
+                if (recursive)
+                    ProcessDirectory(subdirectory);
+            }
         }
     }
 }

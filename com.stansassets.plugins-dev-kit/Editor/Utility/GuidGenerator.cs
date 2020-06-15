@@ -43,13 +43,12 @@ namespace StansAssets.Plugins.Editor
             }
         }
 
-        public static void RegenerateGuidsInFolder(string folderPath, bool recursive = false, bool changeGuidFolder = true)
+        public static void RegenerateGuidsInFolder(string folderPath, bool recursive = false)
         {
             if (Directory.Exists(folderPath))
                 ProcessDirectory(folderPath, recursive);
             
-            if (changeGuidFolder)
-                RegenerateGuid(folderPath);
+            RegenerateGuid(folderPath);
         }
 
         public static void RegenerateGuidsInFolder(IEnumerable<string> folderPaths, bool recursive = false)

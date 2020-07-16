@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using StansAssets.Foundation.Editor;
 using StansAssets.Foundation.UIElements;
 using UnityEditor;
 using UnityEngine;
@@ -21,24 +22,18 @@ namespace StansAssets.Plugins.Editor
         protected VisualElement m_WindowRoot;
         protected readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
 
-        readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIPath}/SettingsWindow";
+        readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
 
         void OnEnable()
         {
             var root = rootVisualElement;
+            UIToolkitEditorUtility.CloneTreeAndApplyStyle(root, $"{m_WindowUIFilesRootPath}/PackageSettingsWindow");
 
-            // Import UXML
-            var uxmlPath = $"{m_WindowUIFilesRootPath}/PackageSettingsWindow.uxml";
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(uxmlPath);
-            var ussPath = $"{m_WindowUIFilesRootPath}/PackageSettingsWindow.uss";
-            var stylesheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(ussPath);
-            var template = visualTree.CloneTree();
-            m_WindowRoot = template[0];
-            m_WindowRoot.styleSheets.Add(stylesheet);
+            m_WindowRoot = root.Q("window-root");
             root.Add(m_WindowRoot);
 
             var packageInfo = GetPackageInfo();
-            root.Q<Label>("displayName").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
+            root.Q<Label>("display-name").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
             root.Q<Label>("description").text = packageInfo.description;
             root.Q<Label>("version").text = $"Version: {packageInfo.version}";
 

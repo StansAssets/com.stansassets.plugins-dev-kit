@@ -7,7 +7,8 @@ namespace StansAssets.Plugins.Editor
     {
         public const string Name = "com.stansassets.plugins-dev-kit";
         public static readonly string RootPath = PackageManagerUtility.GetPackageRootPath(Name);
-        public static readonly string UIPath = $"{RootPath}/Editor/UI";
+        public static readonly string UIToolkitPath = $"{RootPath}/Editor/UIToolkit";
+        public static readonly string UIToolkitControlsPath = $"{UIToolkitPath}/Controls";
 
         /// <summary>
         ///  Foundation package info.

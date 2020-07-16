@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using StansAssets.Foundation.Editor;
+using UnityEditor;
 using UnityEngine.UIElements;
 
 namespace StansAssets.Plugins.Editor
@@ -11,12 +12,10 @@ namespace StansAssets.Plugins.Editor
         /// <summary>
         /// Created tab with the content of provided uxml file.
         /// </summary>
-        /// <param name="uxmlPath">Project related uxml file path</param>
-        protected BaseTab(string uxmlPath)
+        /// <param name="path">Project related uxml/uss file path without extensions.</param>
+        protected BaseTab(string path)
         {
-            // Import UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(uxmlPath);
-            visualTree.CloneTree(this);
+            UIToolkitEditorUtility.CloneTreeAndApplyStyle(this, path);
             style.flexGrow = 1.0f;
         }
 

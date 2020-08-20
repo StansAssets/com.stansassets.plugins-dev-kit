@@ -1,0 +1,68 @@
+.description {
+    flex-wrap: wrap;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-game {
+    background-image: url('Resources/game.png');
+}
+
+.icon-plugin {
+    background-image: url('Resources/plugin.png');
+}
+
+.icon-team {
+    background-image: url('Resources/team.png');
+}
+
+.icon-linkedin {
+    background-image: url('Resources/linkedin.png');
+}
+
+.icon-twitter {
+    background-image: url('Resources/twitter.png');
+}
+
+.icon-facebook {
+    background-image: url('Resources/facebook.png');
+}
+.icon-youtube {
+    background-image: url('Resources/youtube.png');
+}
+.icon-google-plus {
+    background-image: url('Resources/google-plus.png');
+}
+.icon-twitch {
+    background-image: url('Resources/twitch.png');
+}
+.contact-text {
+    padding: 2px 0 0 6px;
+}
+
+.contact-container {
+    margin: 10px 13px 0 13px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.contact-element {
+    flex-direction: row;
+    margin-right: 25%;
+    width: 20px;
+    height: 16px;
+}
+
+.icon-logo {
+    margin-top: 5px;
+    background-image: url('Resources/sa_logo_small.png');
+    width: 200px;
+    height: 59px;
+}
+
+.bold{
+    -unity-font-style: bold;
+}

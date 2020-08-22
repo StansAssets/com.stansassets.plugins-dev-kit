@@ -16,7 +16,6 @@ namespace StansAssets.Plugins.Editor
         protected BaseTab(string path)
         {
             UIToolkitEditorUtility.CloneTreeAndApplyStyle(this, path);
-            style.flexGrow = 1.0f;
         }
 
         /// <summary>

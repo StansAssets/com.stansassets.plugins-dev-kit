@@ -29,6 +29,10 @@
     flex-grow: 1;
 }
 
+.tabs-container {
+    flex-grow: 1;
+}
+
 .version {
     -unity-text-align: upper-right;
     margin-right: 20px;

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:VisualElement name="window-root" class="window-root">
+    <ui:VisualElement binding-path="window-root" name="window-root" class="window-root">
         <uie:Toolbar class="toolbar">
             <uie:ToolbarButton text="Go To Documentation" class="toolbar" />
             <ui:VisualElement class="toolbar__flexible-space" />
@@ -19,5 +19,6 @@
             <StansAssets.Foundation.UIElements.ButtonStrip name="tabs" view-data-key="header-tabs" />
             <ui:VisualElement class="toolbar__flexible-space" />
         </ui:VisualElement>
+        <ui:ScrollView name="tabs-container" class="tabs-container" view-data-key="tabs-container-scroll"/>
     </ui:VisualElement>
 </ui:UXML>

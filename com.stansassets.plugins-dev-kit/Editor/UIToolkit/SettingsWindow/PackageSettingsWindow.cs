@@ -19,18 +19,17 @@ namespace StansAssets.Plugins.Editor
         protected abstract void OnWindowEnable(VisualElement root);
         protected ButtonStrip m_TabsButtons;
 
-        protected VisualElement m_WindowRoot;
+        protected ScrollView m_TabsContainer;
         protected readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
 
         readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
-
+        
         void OnEnable()
         {
             var root = rootVisualElement;
             UIToolkitEditorUtility.CloneTreeAndApplyStyle(root, $"{m_WindowUIFilesRootPath}/PackageSettingsWindow");
 
-            m_WindowRoot = root.Q("window-root");
-            root.Add(m_WindowRoot);
+            m_TabsContainer = root.Q<ScrollView>("tabs-container");
 
             var packageInfo = GetPackageInfo();
             root.Q<Label>("display-name").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
@@ -50,11 +49,11 @@ namespace StansAssets.Plugins.Editor
             foreach (var tab in m_Tabs)
                 tab.Value.RemoveFromHierarchy();
 
-            m_WindowRoot.Add(m_Tabs[m_TabsButtons.Value]);
+            m_TabsContainer.Add(m_Tabs[m_TabsButtons.Value]);
         }
 
         /// <summary>
-        ///     Add tab to the window top bar.
+        /// Add tab to the window top bar.
         /// </summary>
         /// <param name="label">Tab label.</param>
         /// <param name="content">Tab content.</param>
@@ -65,6 +64,7 @@ namespace StansAssets.Plugins.Editor
             {
                 m_TabsButtons.AddChoice(label, label);
                 m_Tabs.Add(label, content);
+                content.viewDataKey = label;
             }
             else
             {
@@ -73,13 +73,13 @@ namespace StansAssets.Plugins.Editor
         }
 
         /// <summary>
-        ///     Method will show and doc window next to the Inspector Window.
+        /// Method will show and doc window next to the Inspector Window.
         /// </summary>
         /// <param name="windowTitle">Window Title.</param>
         /// <param name="icon">Window Icon.</param>
         /// <returns>
-        ///     Returns the first EditorWindow which is currently on the screen.
-        ///     If there is none, creates and shows new window and returns the instance of it.
+        /// Returns the first EditorWindow which is currently on the screen.
+        /// If there is none, creates and shows new window and returns the instance of it.
         /// </returns>
         public static TWindow ShowTowardsInspector(string windowTitle, Texture icon)
         {

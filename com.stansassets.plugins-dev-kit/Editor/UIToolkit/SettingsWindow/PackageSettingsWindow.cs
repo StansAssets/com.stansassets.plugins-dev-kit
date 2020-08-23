@@ -46,6 +46,9 @@ namespace StansAssets.Plugins.Editor
 
         void ActivateTab()
         {
+            if(string.IsNullOrEmpty(m_TabsButtons.Value))
+                return;
+            
             foreach (var tab in m_Tabs)
                 tab.Value.RemoveFromHierarchy();
 

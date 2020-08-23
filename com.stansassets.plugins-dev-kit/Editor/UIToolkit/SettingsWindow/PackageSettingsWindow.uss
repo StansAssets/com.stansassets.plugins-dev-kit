@@ -50,7 +50,6 @@
 }
 
 .stansassets-button-strip__button {
-    min-width: 80px;
     cursor: link;
     -unity-font-style: bold;
     border-color: rgba(0, 0, 0, 0);

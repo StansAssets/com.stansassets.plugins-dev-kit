@@ -12,7 +12,7 @@ SettingsBlock {
 }
 
 .hyperlink:hover {
-    border-bottom-width: 1;
+    border-bottom-width: 1px;
 }
 
 .description {
@@ -75,7 +75,7 @@ SettingsBlock {
 .contact-element {
     margin-top: 10px;
     flex-direction: row;
-    margin-right: 5%;
+    margin-right: 5px;
     min-height: 20px;
     flex-shrink: 0;
     width: 100px;

@@ -2,7 +2,8 @@
     "name": "StansAssets.Plugins.Editor",
     "references": [
         "StansAssets.Foundation",
-        "StansAssets.Foundation.Editor"
+        "StansAssets.Foundation.Editor",
+        "StansAssets.Plugins"
     ],
     "includePlatforms": [
         "Editor"

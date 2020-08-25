@@ -1,4 +1,6 @@
-﻿using StansAssets.Foundation.Editor;
+﻿#if UNITY_2019_4_OR_NEWER
+
+using StansAssets.Foundation.Editor;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -24,3 +26,4 @@ namespace StansAssets.Plugins.Editor
         public VisualElement Root => this;
     }
 }
+#endif

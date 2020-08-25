@@ -1,4 +1,5 @@
-﻿namespace StansAssets.Plugins.Editor
+﻿#if UNITY_2019_4_OR_NEWER
+namespace StansAssets.Plugins.Editor
 {
     public class AboutTab : BaseTab
     {
@@ -9,3 +10,4 @@
         }
     }
 }
+#endif

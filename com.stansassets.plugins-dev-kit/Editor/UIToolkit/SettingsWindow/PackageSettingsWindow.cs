@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_2019_4_OR_NEWER
+using System;
 using System.Collections.Generic;
 using StansAssets.Foundation.Editor;
 using StansAssets.Foundation.UIElements;
@@ -97,3 +98,4 @@ namespace StansAssets.Plugins.Editor
         }
     }
 }
+#endif

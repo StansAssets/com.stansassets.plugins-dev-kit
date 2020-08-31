@@ -10,7 +10,7 @@ namespace StansAssets.Plugins.Editor
         public static readonly string UIToolkitPath = $"{RootPath}/Editor/UIToolkit";
         public static readonly string UIToolkitControlsPath = $"{UIToolkitPath}/Controls";
 
-#if UNITY_2019_4_OR_NEWER
+#if UNITY_2019_4_OR_NEWER || UNITY_2020_2_OR_NEWER
         /// <summary>
         ///  Foundation package info.
         /// </summary>

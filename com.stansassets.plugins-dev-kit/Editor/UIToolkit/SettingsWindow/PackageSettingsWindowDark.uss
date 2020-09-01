@@ -7,10 +7,6 @@
     color: rgb(130, 130, 130);
 }
 
-.header {
-
-}
-
 SettingsBlock,
 .tabs-bar {
     background-color: rgb(56, 56, 56);

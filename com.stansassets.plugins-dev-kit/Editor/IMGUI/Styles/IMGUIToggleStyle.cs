@@ -5,7 +5,7 @@ namespace StansAssets.Plugins.Editor
 {
     public static class IMGUIToggleStyle
     {
-          public enum YesNoBool
+        public enum YesNoBool
         {
             Yes,
             No

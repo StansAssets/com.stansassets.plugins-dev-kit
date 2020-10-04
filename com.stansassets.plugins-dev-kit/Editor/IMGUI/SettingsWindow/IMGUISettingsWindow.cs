@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using StansAssets.Foundation.Editor;
 using UnityEngine;
 using UnityEditor;
 
@@ -47,25 +48,25 @@ namespace StansAssets.Plugins.Editor
         [SerializeField]
         protected IMGUIHyperToolbar m_MenuToolbar;
         [SerializeField]
-        protected List<IMGUILayoutElementIMGUI> m_TabsLayout = new List<IMGUILayoutElementIMGUI>();
+        protected List<IMGUILayoutElement> m_TabsLayout = new List<IMGUILayoutElement>();
 
         //--------------------------------------
         // Public Methods
         //--------------------------------------
 
-        protected void SetHeaderTitle(string headerTitle)
+        protected void SetPackageName(string packageName)
         {
-            m_HeaderTitle = headerTitle;
-        }
+#if UNITY_2019_4_OR_NEWER || UNITY_2020_2_OR_NEWER
+            var packageInfo = PackageManagerUtility.GetPackageInfo(packageName);
+            m_HeaderTitle = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
+            m_HeaderDescription = packageInfo.description;
+            m_HeaderVersion = packageInfo.version;
+#else
+            m_HeaderTitle = titleContent.text;
+            m_HeaderDescription = "undefined for Unity 2018";
+            m_HeaderVersion = "undefined";
+#endif
 
-        protected void SetHeaderDescription(string headerDescription)
-        {
-            m_HeaderDescription = headerDescription;
-        }
-
-        protected void SetHeaderVersion(string headerVersion)
-        {
-            m_HeaderVersion = headerVersion;
         }
 
         protected void SetDocumentationUrl(string documentationUrl)
@@ -73,7 +74,7 @@ namespace StansAssets.Plugins.Editor
             m_DocumentationUrl = documentationUrl;
         }
 
-        protected void AddMenuItem(string itemName, IMGUILayoutElementIMGUI layout, bool forced = false)
+        protected void AddMenuItem(string itemName, IMGUILayoutElement layout, bool forced = false)
         {
             //It could be 2 cases
             //1 When the window is created and we need to create everything
@@ -105,7 +106,7 @@ namespace StansAssets.Plugins.Editor
         {
             if (!m_IsToolBarWasAlreadyCreated) OnCreate();
 
-            m_TabsLayout = new List<IMGUILayoutElementIMGUI>();
+            m_TabsLayout = new List<IMGUILayoutElement>();
             m_ShouldAwake = true;
             m_SerializationStateIndicator = CreateInstance<ScriptableObject>();
         }

@@ -82,6 +82,23 @@ namespace StansAssets.Plugins.Editor
                 fontStyle = FontStyle.Bold,
                 normal = { textColor = DisabledImageColor }
             });
+        
+        static GUIStyle s_SelectableLabelStyle = null;
+        public static GUIStyle SelectableLabelStyle
+        {
+            get
+            {
+                if (s_SelectableLabelStyle == null)
+                {
+                    s_SelectableLabelStyle = new GUIStyle();
+                    s_SelectableLabelStyle.wordWrap = true;
+                }
+
+                s_SelectableLabelStyle.normal.textColor 
+                    = ColorHelper.MakeColorFromHtml(EditorGUIUtility.isProSkin ? "#DFDFDFFF" : "#0054C7ED");
+                return s_SelectableLabelStyle;
+            }
+        }
 
         public static Color SelectedElementColor => ColorHelper.MakeColorFromHtml(EditorGUIUtility.isProSkin ? "#1BE1F2ED" : "#5CBFCD");
         public static Color ProDisabledImageColor => ColorHelper.MakeColorFromHtml("#999999ED");

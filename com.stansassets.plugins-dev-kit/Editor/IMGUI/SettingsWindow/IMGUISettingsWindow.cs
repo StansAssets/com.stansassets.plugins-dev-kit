@@ -56,7 +56,7 @@ namespace StansAssets.Plugins.Editor
 
         protected void SetPackageName(string packageName)
         {
-#if UNITY_2019_4_OR_NEWER || UNITY_2020_2_OR_NEWER
+#if UNITY_2019_4_OR_NEWER
             var packageInfo = PackageManagerUtility.GetPackageInfo(packageName);
             m_HeaderTitle = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
             m_HeaderDescription = packageInfo.description;

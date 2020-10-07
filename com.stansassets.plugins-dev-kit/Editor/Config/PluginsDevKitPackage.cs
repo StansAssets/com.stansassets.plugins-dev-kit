@@ -21,11 +21,11 @@ namespace StansAssets.Plugins.Editor
         public static readonly string UIToolkitPath = $"{RootPath}/Editor/UIToolkit";
         public static readonly string UIToolkitControlsPath = $"{UIToolkitPath}/Controls";
         
-        public static readonly string EditorArtAssetsPath = $"{RootPath}/Editor/Art/Resources";
+        public static readonly string EditorArtAssetsPath = $"{RootPath}/Editor/Art";
         public static readonly string EditorIconAssetsPath = $"{EditorArtAssetsPath}/Icons";
         public static readonly string EditorFontAssetsPath = $"{EditorArtAssetsPath}/Fonts";
 
-#if UNITY_2019_4_OR_NEWER || UNITY_2020_2_OR_NEWER
+#if UNITY_2019_4_OR_NEWER
         /// <summary>
         ///  Foundation package info.
         /// </summary>

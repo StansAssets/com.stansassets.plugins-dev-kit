@@ -4,7 +4,6 @@ using Boo.Lang;
 using StansAssets.Foundation.UIElements;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 #if UNITY_2019_4_OR_NEWER

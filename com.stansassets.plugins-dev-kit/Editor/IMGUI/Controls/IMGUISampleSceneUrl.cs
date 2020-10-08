@@ -1,22 +1,23 @@
 using System;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace StansAssets.Plugins.Editor
 {
     [Serializable]
-    public class IMGUIDocumentationUrl : IMGUIHyperLabel
+    public class IMGUISampleSceneUrl : IMGUIHyperLabel
     {
         [SerializeField]
-        string m_URL;
+        string m_ScenePath;
 
-        public IMGUIDocumentationUrl(string title, string url)
+        public IMGUISampleSceneUrl(string title, string scenePath)
             : base(new GUIContent(
                     title,
-                    PluginsEditorSkin.GetGenericIcon("list_arrow_white.png")
+                    PluginsEditorSkin.GetGenericIcon("list_arrow_white.png") //TODO unity scene Icon
                 ),
                 SettingsWindowStyles.DescriptionLabelStyle)
         {
-            m_URL = url;
+            m_ScenePath = scenePath;
             SetMouseOverColor(SettingsWindowStyles.SelectedElementColor);
         }
 
@@ -24,7 +25,8 @@ namespace StansAssets.Plugins.Editor
         {
             var click = base.Draw(options);
             if (click) 
-                Application.OpenURL(m_URL);
+                EditorSceneManager.OpenScene(m_ScenePath);
+
 
             return click;
         }

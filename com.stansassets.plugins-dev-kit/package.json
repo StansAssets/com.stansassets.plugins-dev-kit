@@ -1,7 +1,7 @@
 {
   "name": "com.stansassets.plugins-dev-kit",
   "displayName": "Stans Assets - Plugin Dev Kit",
-  "version": "0.0.7-preview",
+  "version": "1.0.0",
   "unity": "2018.4",
   "description": "Package Sample.",
   "dependencies": {

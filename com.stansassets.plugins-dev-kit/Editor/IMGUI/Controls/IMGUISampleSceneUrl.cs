@@ -24,9 +24,14 @@ namespace StansAssets.Plugins.Editor
         public override bool Draw(params GUILayoutOption[] options)
         {
             var click = base.Draw(options);
-            if (click) 
-                EditorSceneManager.OpenScene(m_ScenePath);
-
+            if (click)
+            {
+                var userFinishedOperation = EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+                if (userFinishedOperation)
+                {
+                    EditorSceneManager.OpenScene(m_ScenePath);
+                }
+            }
 
             return click;
         }

@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace StansAssets.Plugins.Editor
         public IMGUISampleSceneUrl(string title, string scenePath)
             : base(new GUIContent(
                     title,
-                    PluginsEditorSkin.GetGenericIcon("list_arrow_white.png") //TODO unity scene Icon
+                    PluginsEditorSkin.GetGenericIcon((EditorGUIUtility.isProSkin)? "sample_dark.png" : "sample_light.png")
                 ),
                 SettingsWindowStyles.DescriptionLabelStyle)
         {

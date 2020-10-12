@@ -1,4 +1,5 @@
-﻿using System;
+#if UNITY_2019_4_OR_NEWER
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using StansAssets.Foundation.UIElements;
@@ -6,7 +7,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-#if UNITY_2019_4_OR_NEWER
 namespace StansAssets.Plugins.Editor
 {
     [Serializable]

@@ -15,7 +15,7 @@ namespace StansAssets.Plugins.Editor
         [SerializeField]
         List<VisualElement> m_DocUrls = new List<VisualElement>();
         [SerializeField]
-        List<Button> m_SampleUrls = new List<Button>();
+        List<VisualElement> m_SampleUrls = new List<VisualElement>();
         [SerializeField]
         List<VisualElement> m_DocTop = new List<VisualElement>();
         [SerializeField]
@@ -65,9 +65,14 @@ namespace StansAssets.Plugins.Editor
             return item;
         }
         
-        Button SampleItem(string nameItem, string link)
+        VisualElement SampleItem(string nameItem, string link)
         {
-            var item = new Button { text = $"{nameItem}" };
+            var labelIcon = new Label();
+            labelIcon.AddToClassList("sample-icon");
+            var label = new Label { text = $"{nameItem}" };
+            var item = new Button();
+            item.Add(labelIcon);
+            item.Add(label);
             item.clicked += () =>
             {
                 EditorSceneManager.OpenScene(link);

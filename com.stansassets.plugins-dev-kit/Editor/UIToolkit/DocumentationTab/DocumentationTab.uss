@@ -49,7 +49,7 @@ SettingsBlock {
 }
 
 .sample-icon {
-    width: 15px;
-    margin-right: 1px;
+    height: 13px;
+    width: 17px;
     background-image: url('../../Art/Icons/Generic/sample_dark.png');
 }

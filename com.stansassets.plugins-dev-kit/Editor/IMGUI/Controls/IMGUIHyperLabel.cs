@@ -56,6 +56,11 @@ namespace StansAssets.Plugins.Editor
                 var lastCopyIndex = 0;
                 foreach (var index in indexes)
                 {
+                    if (index < lastCopyIndex)
+                    {
+                        lastCopyIndex = index;
+                    }
+                    
                     m_HighlightedContext.text += m_Content.text.Substring(lastCopyIndex, index - lastCopyIndex);
                     m_HighlightedContext.text += "<color=yellow>";
                     m_HighlightedContext.text += m_Content.text.Substring(index, pattern.Length);

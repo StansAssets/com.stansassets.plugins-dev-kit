@@ -23,7 +23,7 @@ namespace StansAssets.Plugins.Editor
         /// <summary>
         /// Tab root.
         /// </summary>
-        public VisualElement Root => this;
+        protected VisualElement Root => this;
     }
 }
 #endif

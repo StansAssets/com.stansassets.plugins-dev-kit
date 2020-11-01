@@ -13,7 +13,7 @@ namespace StansAssets.Plugins.Editor
 
         public IMGUISampleSceneUrl(string title, string scenePath)
             : base(new GUIContent(
-                    title,
+        $" {title}",
                     PluginsEditorSkin.GetGenericIcon((EditorGUIUtility.isProSkin)? "sample_dark.png" : "sample_light.png")
                 ),
                 SettingsWindowStyles.DescriptionLabelStyle)

@@ -24,32 +24,39 @@ namespace StansAssets.Plugins.Editor
         protected readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
 
         readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
-        
+
         void OnEnable()
         {
-            var root = rootVisualElement;
-            UIToolkitEditorUtility.CloneTreeAndApplyStyle(root, $"{m_WindowUIFilesRootPath}/PackageSettingsWindow");
+            // This is a workaround due to a very weird bug.
+            // During OnEnable we may need to accesses singleton scriptable object associated with the package.
+            // And looks like AssetDatabase could be not ready and we will recreate new empty settings objects
+            // instead of getting existing one.
+            EditorApplication.delayCall += () =>
+            {
+                var root = rootVisualElement;
+                UIToolkitEditorUtility.CloneTreeAndApplyStyle(root, $"{m_WindowUIFilesRootPath}/PackageSettingsWindow");
 
-            m_TabsContainer = root.Q<ScrollView>("tabs-container");
+                m_TabsContainer = root.Q<ScrollView>("tabs-container");
 
-            var packageInfo = GetPackageInfo();
-            root.Q<Label>("display-name").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
-            root.Q<Label>("description").text = packageInfo.description;
-            root.Q<Label>("version").text = $"Version: {packageInfo.version}";
+                var packageInfo = GetPackageInfo();
+                root.Q<Label>("display-name").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
+                root.Q<Label>("description").text = packageInfo.description;
+                root.Q<Label>("version").text = $"Version: {packageInfo.version}";
 
-            m_TabsButtons = root.Q<ButtonStrip>();
-            m_TabsButtons.CleanUp();
-            m_TabsButtons.OnButtonClick += ActivateTab;
+                m_TabsButtons = root.Q<ButtonStrip>();
+                m_TabsButtons.CleanUp();
+                m_TabsButtons.OnButtonClick += ActivateTab;
 
-            OnWindowEnable(root);
-            ActivateTab();
+                OnWindowEnable(root);
+                ActivateTab();
+            };
         }
 
         void ActivateTab()
         {
-            if(string.IsNullOrEmpty(m_TabsButtons.Value))
+            if (string.IsNullOrEmpty(m_TabsButtons.Value))
                 return;
-            
+
             foreach (var tab in m_Tabs)
                 tab.Value.RemoveFromHierarchy();
 

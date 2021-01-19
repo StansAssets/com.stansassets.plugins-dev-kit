@@ -1,7 +1,7 @@
 {
   "name": "com.stansassets.plugins-dev-kit",
   "displayName": "Stans Assets - Plugin Dev Kit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2018.4",
   "description": "Package Sample.",
   "dependencies": {
@@ -18,11 +18,10 @@
     "email": "stan@stansassets.com",
     "url": "https://stansassets.com/"
   },
-
   "homepage": "https://api.stansassets.com/",
   "bugs": {
     "url": "https://github.com/StansAssets/com.stansassets.plugins-dev-kit/issues",
-    "email" : "support@stansassets.com"
+    "email": "support@stansassets.com"
   },
   "repository": {
     "type": "git",

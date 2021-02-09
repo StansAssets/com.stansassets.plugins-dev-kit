@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,9 +7,14 @@ namespace StansAssets.Plugins.Editor
 {
     public static class IMGUILayout
     {
-          public static string StringValuePopup(string title, string value, string[] displayedOptions, string tooltip = "")
+        public static string StringValuePopup(string title, string value, string[] displayedOptions, string tooltip = "")
         {
             return StringValuePopup(new GUIContent(title, tooltip), value, displayedOptions);
+        }
+
+        public static void ReorderablList<T>(IList<T> list, IMGUIReorderablList.ItemName<T> itemName, IMGUIReorderablList.ItemContent<T> itemContent = null, IMGUIReorderablList.OnItemAdd onItemAdd = null, IMGUIReorderablList.ItemContent<T> buttonsContent = null, IMGUIReorderablList.ItemContent<T> itemStartUI = null)
+        {
+            IMGUIReorderablList.Draw(list, itemName, itemContent, onItemAdd, buttonsContent, itemStartUI);
         }
 
         public static string StringValuePopup(GUIContent content, string value, string[] displayedOptions)

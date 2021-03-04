@@ -8,14 +8,14 @@ namespace StansAssets.Plugins
     {
         public LocalProjectSettings()
         {
-            SettingsFileName = GetType().Name;
             PackageName = "newPackage";
+            SettingsFileName = GetType().Name;
         }
         
-        public LocalProjectSettings(string packageName, string settingsFileName)
+        public LocalProjectSettings(string packageName, string settingsFileName = null)
         {
-            SettingsFileName = settingsFileName;
             PackageName = packageName;
+            SettingsFileName = settingsFileName == null ? settingsFileName : GetType().Name;
         }
 
         /// <summary>

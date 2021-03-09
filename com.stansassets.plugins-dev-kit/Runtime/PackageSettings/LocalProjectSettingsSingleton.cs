@@ -54,7 +54,7 @@ namespace StansAssets.Plugins
         {
             // Only applicable while in the editor.
 #if UNITY_EDITOR
-            var path = Path.Combine(asset.SettingsFilePath);
+            var path = asset.SettingsFilePath;
             var directory = Path.GetDirectoryName(path);
 
             if (directory == null)
@@ -69,12 +69,13 @@ namespace StansAssets.Plugins
 
         static T InitFromCache(T asset)
         {
-            if (File.Exists(asset.SettingsFilePath))
+            var path = asset.SettingsFilePath;
+            if (File.Exists(path))
             {
                 StreamReader reader = null;
                 try
                 {
-                    reader = new StreamReader(asset.SettingsFilePath);
+                    reader = new StreamReader(path);
                     var text = reader.ReadToEnd();
                     return JsonUtility.FromJson<T>(text);
                 }

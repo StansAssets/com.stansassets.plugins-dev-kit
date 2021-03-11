@@ -16,8 +16,9 @@ namespace StansAssets.Plugins.Editor
         string FindValueByKey (string key, string json)
         {
             // number of characters from the 1st char of the given key to the 1st char of corresponding value
-            int offsetBeforeValue = key.Length + 5; 
-            int position = json.IndexOf ("\"" + key + "\"") + offsetBeforeValue;
+            int offsetBeforeValue = key.Length + 5;
+            string lookForString = $"\"{key}\"";
+            int position = json.IndexOf (lookForString) + offsetBeforeValue;
             var value = (position > offsetBeforeValue) 
                             ? new string(json.Skip (position).TakeWhile (c => c != '"').ToArray ()) 
                             : string.Empty;

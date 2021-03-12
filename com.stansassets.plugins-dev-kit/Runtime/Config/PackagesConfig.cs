@@ -9,5 +9,10 @@ namespace StansAssets.Plugins
         /// Package runtime settings location path.
         /// </summary>
         public const string SettingsPath = "Assets/Plugins/StansAssets/Settings";
+        
+        /// <summary>
+        /// Library settings folder path.
+        /// </summary>
+        public const string LibraryPath = "Library/StansAssets";
     }
 }

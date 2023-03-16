@@ -82,6 +82,15 @@ namespace StansAssets.Plugins.Editor
                 throw new ArgumentException($"Tab '{label}' already added", nameof(label));
             }
         }
+        
+        /// <summary>
+        /// Set the flexible growth property of tabs content container
+        /// </summary>
+        /// <param name="styleFloat"></param>
+        protected void ContentContainerFlexGrow(StyleFloat styleFloat)
+        {
+            m_TabsContainer.contentContainer.style.flexGrow = styleFloat;
+        }
 
         /// <summary>
         /// Method will show and doc window next to the Inspector Window.

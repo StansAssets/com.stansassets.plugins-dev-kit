@@ -15,8 +15,7 @@ namespace StansAssets.Plugins.Editor
     /// </summary>
     public class TabController
     {
-        readonly Dictionary<string, (string label, VisualElement element)> m_Tabs =
-            new Dictionary<string, (string label, VisualElement element)>();
+        readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
 
         readonly ButtonStrip m_TabsButtons;
         readonly ScrollView m_TabsContainer;
@@ -31,57 +30,42 @@ namespace StansAssets.Plugins.Editor
         {
             m_TabsButtons = root.Q<ButtonStrip>();
             m_TabsContainer = root.Q<ScrollView>("tabs-container");
- 
-            Init();
-        }
-
-        /// <summary>
-        /// Use to define custom tabbed menu
-        /// </summary>
-        /// <param name="tabsButtons"><see cref="ButtonStrip"/> buttons used to switch between tabs</param>
-        /// <param name="tabsContainer"><see cref="ScrollView"/> the container that will display the contents of the tabs</param>
-        public TabController(ButtonStrip tabsButtons, ScrollView tabsContainer)
-        {
-            m_TabsButtons = tabsButtons;
-            m_TabsContainer = tabsContainer;
 
             Init();
         }
-
+        
         /// <summary>
         /// Add tab to the window top bar.
         /// </summary>
-        /// <param name="name">Tab name</param>
         /// <param name="label">Tab label.</param>
         /// <param name="content">Tab content.</param>
         /// <exception cref="ArgumentException">Will throw tab with the same label was already added.</exception>
-        public void AddTab(string name, string label, VisualElement content)
+        public void AddTab(string label, VisualElement content)
         {
             if (!m_Tabs.ContainsKey(label))
             {
                 m_TabsButtons.AddChoice(label, label);
-                m_Tabs.Add(name, (label, content));
+                m_Tabs.Add(label, content);
                 content.viewDataKey = label;
             }
             else
             {
-                throw new ArgumentException($"Tab '{label}'[{name}] already added", nameof(label));
+                throw new ArgumentException($"Tab '{label}' already added", nameof(label));
             }
         }
 
         /// <summary>
-        /// Activate tab by name
+        /// Activate tab by label
         /// </summary>
-        /// <param name="name">Early specified tab name</param>
-        public void ActivateTab(string name)
+        /// <param name="label">Early specified tab label</param>
+        public void ActivateTab(string label)
         {
-            if (!m_Tabs.ContainsKey(name))
+            if (!m_Tabs.ContainsKey(label))
             {
                 return;
             }
 
-            var tab = m_Tabs[name];
-            m_TabsButtons.SetValue(tab.label);
+            m_TabsButtons.SetValue(label);
         }
 
         /// <summary>
@@ -106,22 +90,18 @@ namespace StansAssets.Plugins.Editor
 
         void ActivateTab()
         {
-            if (string.IsNullOrEmpty(m_TabsButtons.Value))
+            if (string.IsNullOrEmpty(m_TabsButtons.Value)
+                || !m_Tabs.Any())
             {
                 return;
             }
 
             foreach (var tab in m_Tabs)
             {
-                tab.Value.element.RemoveFromHierarchy();
+                tab.Value.RemoveFromHierarchy();
             }
 
-            if (!m_Tabs.Any())
-            {
-                return;
-            }
-
-            var (_, element) = m_Tabs.First(i => i.Value.label.Equals(m_TabsButtons.Value)).Value;
+            var element = m_Tabs.First(i => i.Key.Equals(m_TabsButtons.Value)).Value;
             m_TabsContainer.Add(element);
         }
     }

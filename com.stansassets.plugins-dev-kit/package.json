@@ -5,7 +5,7 @@
   "unity": "2018.4",
   "description": "Package Sample.",
   "dependencies": {
-    "com.stansassets.foundation": "1.0.16"
+    "com.stansassets.foundation": "1.0.27"
   },
   "keywords": [
     "plugins",

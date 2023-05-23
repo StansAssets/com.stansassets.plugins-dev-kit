@@ -21,6 +21,16 @@ namespace StansAssets.Plugins.Editor
         readonly ScrollView m_TabsContainer;
 
         /// <summary>
+        /// Available tabs' labels.
+        /// </summary>
+        public IEnumerable<string> Tabs => m_Tabs.Keys;
+
+        /// <summary>
+        /// Active tab label from <see cref="Tabs"/>.
+        /// </summary>
+        public string ActiveTab => m_TabsButtons.Value;
+        
+        /// <summary>
         /// This constructor will looking for already existing elements:
         /// <see cref="ButtonStrip"/> (without name) and <see cref="ScrollView"/> named "tabs-container"
         /// The purpose of this is to support <see cref="PackageSettingsWindow{TWindow}"/>.

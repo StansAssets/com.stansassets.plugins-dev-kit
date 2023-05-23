@@ -25,9 +25,7 @@ namespace StansAssets.Plugins.Editor
             ActivateTab("About");
         }
 
-        protected override void OnDeactivate()
-        {
-        }
+        protected override void OnDeactivate() { }
     }
 }
 

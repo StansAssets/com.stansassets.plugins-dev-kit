@@ -87,21 +87,12 @@ namespace StansAssets.Plugins.Editor
             m_TabsContainer.contentContainer.style.flexGrow = styleFloat;
         }
 
-        void Init()
+        /// <summary>
+        /// Refresh current tab
+        /// </summary>
+        public void RefreshActiveTab()
         {
-            Assert.IsNotNull(m_TabsButtons);
-            Assert.IsNotNull(m_TabsContainer);
-
-            m_TabsButtons.CleanUp();
-            m_TabsButtons.OnButtonClick += ActivateTab;
-
-            ActivateTab();
-        }
-
-        void ActivateTab()
-        {
-            if (string.IsNullOrEmpty(m_TabsButtons.Value)
-                || !m_Tabs.Any())
+            if (string.IsNullOrEmpty(ActiveTab))
             {
                 return;
             }
@@ -113,6 +104,17 @@ namespace StansAssets.Plugins.Editor
 
             var element = m_Tabs.First(i => i.Key.Equals(m_TabsButtons.Value)).Value;
             m_TabsContainer.Add(element);
+        }
+
+        void Init()
+        {
+            Assert.IsNotNull(m_TabsButtons);
+            Assert.IsNotNull(m_TabsContainer);
+
+            m_TabsButtons.CleanUp();
+            m_TabsButtons.OnButtonClick += RefreshActiveTab;
+
+            RefreshActiveTab();
         }
     }
 }

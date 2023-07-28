@@ -101,6 +101,16 @@ namespace StansAssets.Plugins.Editor
             m_TabController = new TabController(rootElement);
         }
 
+        void OnActivateHandler(string searchContext, VisualElement rootElement)
+        {
+            OnActivate(searchContext, rootElement);
+
+            EditorApplication.delayCall += () =>
+            {
+                m_TabController.RefreshActiveTab();
+            };
+        }
+
         SettingsProvider ConstructSettingsProvider()
         {
             var packageInfo = GetPackageInfo();
@@ -110,7 +120,7 @@ namespace StansAssets.Plugins.Editor
             };
 
             settingsProvider.activateHandler += OnActivateWindow;
-            settingsProvider.activateHandler += OnActivate;
+            settingsProvider.activateHandler += OnActivateHandler;
             settingsProvider.deactivateHandler += OnDeactivate;
 
             return settingsProvider;

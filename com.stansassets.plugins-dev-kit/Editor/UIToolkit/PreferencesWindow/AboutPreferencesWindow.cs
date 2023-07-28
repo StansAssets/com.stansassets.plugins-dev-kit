@@ -22,7 +22,6 @@ namespace StansAssets.Plugins.Editor
         {
             ContentContainerFlexGrow(1);
             AddTab("About", new AboutTab());
-            ActivateTab("About");
         }
 
         protected override void OnDeactivate() { }

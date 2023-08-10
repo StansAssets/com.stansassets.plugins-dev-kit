@@ -14,8 +14,7 @@ namespace StansAssets.Plugins.Editor
         protected override PackageInfo GetPackageInfo()
             => PackageManagerUtility.GetPackageInfo(PluginsDevKitPackage.Name);
 
-        protected override string DisplayName => "Plugin Dev Kit";
-        protected override string SettingsPath => $"{PluginsDevKitPackage.RootMenu}/{DisplayName}";
+        protected override string SettingsPath => $"{PluginsDevKitPackage.RootMenu}/{GetPackageInfo().displayName}";
         protected override SettingsScope Scope => SettingsScope.User;
 
         protected override void OnActivate(string searchContext, VisualElement rootElement)

@@ -21,15 +21,10 @@ namespace StansAssets.Plugins.Editor
         /// Structure describing a Unity Package.
         /// </summary>
         protected abstract UnityEditor.PackageManager.PackageInfo GetPackageInfo();
+        
 
         /// <summary>
-        /// Gets or sets the display name of the SettingsProvider as it appears in the Settings window.
-        /// If not set, the Settings window uses last token of SettingsProvider.settingsPath instead.
-        /// </summary>
-        protected abstract string DisplayName { get; }
-
-        /// <summary>
-        /// Gets Path used to place the SettingsProvider in the tree view of the Settings window.
+        /// Gets Path used to place the SettingsProvider in the tree view of the Preferences or Project Settings window.
         /// The path should be unique among all other settings paths and should use "/" as its separator.
         /// </summary>
         protected abstract string SettingsPath { get; }
@@ -91,10 +86,9 @@ namespace StansAssets.Plugins.Editor
             {
                 searchBar.style.visibility = Visibility.Hidden;
             }
-
-            rootElement.Q<Label>("display-name").text = DisplayName;
-
+            
             var packageInfo = GetPackageInfo();
+            rootElement.Q<Label>("display-name").text = packageInfo.displayName;
             rootElement.Q<Label>("description").text = packageInfo.description;
             rootElement.Q<Label>("version").text = $"Version: {packageInfo.version}";
 
@@ -116,7 +110,7 @@ namespace StansAssets.Plugins.Editor
             var packageInfo = GetPackageInfo();
             var settingsProvider = new SettingsProvider(SettingsPath, Scope, packageInfo.keywords)
             {
-                label = DisplayName,
+                label = packageInfo.displayName,
             };
 
             settingsProvider.activateHandler += OnActivateWindow;

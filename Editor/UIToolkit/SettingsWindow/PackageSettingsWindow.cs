@@ -25,6 +25,15 @@ namespace StansAssets.Plugins.Editor
 
         readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
 
+        /// <summary>
+        /// Set/Get the flexible growth property of tabs content container
+        /// </summary>
+        public StyleFloat ContentFlexGrow
+        {
+            get => m_TabsContainer.contentContainer.style.flexGrow;
+            set => m_TabsContainer.contentContainer.style.flexGrow = value;
+        }
+
         void OnEnable()
         {
             // This is a workaround due to a very weird bug.
@@ -81,15 +90,6 @@ namespace StansAssets.Plugins.Editor
             {
                 throw new ArgumentException($"Tab '{label}' already added", nameof(label));
             }
-        }
-        
-        /// <summary>
-        /// Set the flexible growth property of tabs content container
-        /// </summary>
-        /// <param name="styleFloat"></param>
-        protected void ContentContainerFlexGrow(StyleFloat styleFloat)
-        {
-            m_TabsContainer.contentContainer.style.flexGrow = styleFloat;
         }
 
         /// <summary>

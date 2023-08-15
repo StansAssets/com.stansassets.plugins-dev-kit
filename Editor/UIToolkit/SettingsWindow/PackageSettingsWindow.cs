@@ -1,8 +1,7 @@
 ﻿#if UNITY_2019_4_OR_NEWER
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using StansAssets.Foundation.Editor;
-using StansAssets.Foundation.UIElements;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,11 +17,8 @@ namespace StansAssets.Plugins.Editor
     {
         protected abstract PackageInfo GetPackageInfo();
         protected abstract void OnWindowEnable(VisualElement root);
-        protected ButtonStrip m_TabsButtons;
 
-        protected ScrollView m_TabsContainer;
-        protected readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
-
+        TabController m_TabController;
         readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
 
         /// <summary>
@@ -45,16 +41,12 @@ namespace StansAssets.Plugins.Editor
                 var root = rootVisualElement;
                 UIToolkitEditorUtility.CloneTreeAndApplyStyle(root, $"{m_WindowUIFilesRootPath}/PackageSettingsWindow");
 
-                m_TabsContainer = root.Q<ScrollView>("tabs-container");
+                m_TabController = new TabController(root);
 
                 var packageInfo = GetPackageInfo();
                 root.Q<Label>("display-name").text = packageInfo.displayName.Remove(0, "Stans Assets - ".Length);
                 root.Q<Label>("description").text = packageInfo.description;
                 root.Q<Label>("version").text = $"Version: {packageInfo.version}";
-
-                m_TabsButtons = root.Q<ButtonStrip>();
-                m_TabsButtons.CleanUp();
-                m_TabsButtons.OnButtonClick += ActivateTab;
 
                 OnWindowEnable(root);
                 ActivateTab();
@@ -63,13 +55,22 @@ namespace StansAssets.Plugins.Editor
 
         void ActivateTab()
         {
-            if (string.IsNullOrEmpty(m_TabsButtons.Value))
+            if (string.IsNullOrEmpty(m_TabController.ActiveTab))
                 return;
+            
+            var firstTab = m_TabController.Tabs.FirstOrDefault();
+            if (firstTab != null)
+                ActivateTab(firstTab);
+        }
 
-            foreach (var tab in m_Tabs)
-                tab.Value.RemoveFromHierarchy();
-
-            m_TabsContainer.Add(m_Tabs[m_TabsButtons.Value]);
+        /// <summary>
+        /// Activates tab by label.
+        /// Tab will be activate if tab with given label is already added.
+        /// </summary>
+        /// <param name="label">Tab label.</param>
+        protected void ActivateTab(string label)
+        {
+            m_TabController.ActivateTab(label);
         }
 
         /// <summary>
@@ -80,16 +81,7 @@ namespace StansAssets.Plugins.Editor
         /// <exception cref="ArgumentException">Will throw tab with the same label was already added.</exception>
         protected void AddTab(string label, VisualElement content)
         {
-            if (!m_Tabs.ContainsKey(label))
-            {
-                m_TabsButtons.AddChoice(label, label);
-                m_Tabs.Add(label, content);
-                content.viewDataKey = label;
-            }
-            else
-            {
-                throw new ArgumentException($"Tab '{label}' already added", nameof(label));
-            }
+            m_TabController.AddTab(label, content);
         }
 
         /// <summary>

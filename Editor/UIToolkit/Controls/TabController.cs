@@ -17,8 +17,8 @@ namespace StansAssets.Plugins.Editor
     {
         readonly Dictionary<string, VisualElement> m_Tabs = new Dictionary<string, VisualElement>();
 
-        readonly ButtonStrip m_TabsButtons;
-        readonly ScrollView m_TabsContainer;
+        readonly ButtonStrip m_Buttons;
+        readonly ScrollView m_Container;
 
         /// <summary>
         /// Available tabs' labels.
@@ -28,7 +28,17 @@ namespace StansAssets.Plugins.Editor
         /// <summary>
         /// Active tab label from <see cref="Tabs"/>.
         /// </summary>
-        public string ActiveTab => m_TabsButtons.Value;
+        public string ActiveTab => m_Buttons.Value;
+
+        /// <summary>
+        /// Button elements in the header of the control
+        /// </summary>
+        public ButtonStrip Buttons => m_Buttons;
+        
+        /// <summary>
+        /// Container where tab content is displayed
+        /// </summary>
+        public ScrollView Container => m_Container;
         
         /// <summary>
         /// This constructor will looking for already existing elements:
@@ -38,8 +48,8 @@ namespace StansAssets.Plugins.Editor
         /// <param name="root">Element that contains <see cref="ButtonStrip"/> and <see cref="ScrollView"/> named tabs-container</param>
         public TabController(VisualElement root)
         {
-            m_TabsButtons = root.Q<ButtonStrip>();
-            m_TabsContainer = root.Q<ScrollView>("tabs-container");
+            m_Buttons = root.Q<ButtonStrip>();
+            m_Container = root.Q<ScrollView>("tabs-container");
 
             Init();
         }
@@ -54,7 +64,7 @@ namespace StansAssets.Plugins.Editor
         {
             if (!m_Tabs.ContainsKey(label))
             {
-                m_TabsButtons.AddChoice(label, label);
+                m_Buttons.AddChoice(label, label);
                 m_Tabs.Add(label, content);
                 content.viewDataKey = label;
             }
@@ -75,16 +85,7 @@ namespace StansAssets.Plugins.Editor
                 return;
             }
 
-            m_TabsButtons.SetValue(label);
-        }
-
-        /// <summary>
-        /// Set the flexible growth property of tabs content container
-        /// </summary>
-        /// <param name="styleFloat"></param>
-        public void ContentContainerFlexGrow(StyleFloat styleFloat)
-        {
-            m_TabsContainer.contentContainer.style.flexGrow = styleFloat;
+            m_Buttons.SetValue(label);
         }
 
         /// <summary>
@@ -102,17 +103,17 @@ namespace StansAssets.Plugins.Editor
                 tab.Value.RemoveFromHierarchy();
             }
 
-            var element = m_Tabs.First(i => i.Key.Equals(m_TabsButtons.Value)).Value;
-            m_TabsContainer.Add(element);
+            var element = m_Tabs.First(i => i.Key.Equals(m_Buttons.Value)).Value;
+            m_Container.Add(element);
         }
 
         void Init()
         {
-            Assert.IsNotNull(m_TabsButtons);
-            Assert.IsNotNull(m_TabsContainer);
+            Assert.IsNotNull(m_Buttons);
+            Assert.IsNotNull(m_Container);
 
-            m_TabsButtons.CleanUp();
-            m_TabsButtons.OnButtonClick += RefreshActiveTab;
+            m_Buttons.CleanUp();
+            m_Buttons.OnButtonClick += RefreshActiveTab;
 
             RefreshActiveTab();
         }

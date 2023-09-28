@@ -21,7 +21,6 @@ namespace StansAssets.Plugins.Editor
         /// Structure describing a Unity Package.
         /// </summary>
         protected abstract UnityEditor.PackageManager.PackageInfo GetPackageInfo();
-        
 
         /// <summary>
         /// Gets Path used to place the SettingsProvider in the tree view of the Preferences or Project Settings window.
@@ -34,6 +33,11 @@ namespace StansAssets.Plugins.Editor
         /// in the Preferences window (SettingsScope.User) or the Settings window (SettingsScope.Project).
         /// </summary>
         protected abstract SettingsScope Scope { get; }
+
+        /// <summary>
+        /// Tab control element.
+        /// </summary>
+        protected TabController TabController => m_TabController;
 
         /// <summary>
         /// Add tab to the window top bar.
@@ -53,15 +57,6 @@ namespace StansAssets.Plugins.Editor
         protected void ActivateTab(string name)
         {
             m_TabController.ActivateTab(name);
-        }
-
-        /// <summary>
-        /// Set the flexible growth property of tabs content container
-        /// </summary>
-        /// <param name="styleFloat"></param>
-        protected void ContentContainerFlexGrow(StyleFloat styleFloat)
-        {
-            m_TabController.ContentContainerFlexGrow(styleFloat);
         }
 
         /// <summary>

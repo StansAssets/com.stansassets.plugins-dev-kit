@@ -21,15 +21,6 @@ namespace StansAssets.Plugins.Editor
         TabController m_TabController;
         readonly string m_WindowUIFilesRootPath = $"{PluginsDevKitPackage.UIToolkitPath}/SettingsWindow";
 
-        /// <summary>
-        /// Set/Get the flexible growth property of tabs content container
-        /// </summary>
-        public StyleFloat ContentFlexGrow
-        {
-            get => m_TabsContainer.contentContainer.style.flexGrow;
-            set => m_TabsContainer.contentContainer.style.flexGrow = value;
-        }
-
         void OnEnable()
         {
             // This is a workaround due to a very weird bug.

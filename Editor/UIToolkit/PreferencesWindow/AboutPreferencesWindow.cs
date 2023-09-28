@@ -19,7 +19,7 @@ namespace StansAssets.Plugins.Editor
 
         protected override void OnActivate(string searchContext, VisualElement rootElement)
         {
-            ContentContainerFlexGrow(1);
+            TabController.Container.contentContainer.style.flexGrow = 1;
             AddTab("About", new AboutTab());
         }
 

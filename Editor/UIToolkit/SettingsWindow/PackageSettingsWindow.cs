@@ -24,11 +24,14 @@ namespace StansAssets.Plugins.Editor
         /// <summary>
         /// Set/Get the flexible growth property of tabs content container
         /// </summary>
+        
+        
         public StyleFloat ContentFlexGrow
         {
-            get => m_TabsContainer.contentContainer.style.flexGrow;
-            set => m_TabsContainer.contentContainer.style.flexGrow = value;
+            get => m_TabController.ContainerFlexGrow;
+            set => m_TabController.ContentContainerFlexGrow(value);
         }
+        
 
         void OnEnable()
         {

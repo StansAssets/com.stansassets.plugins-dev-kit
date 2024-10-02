@@ -88,6 +88,11 @@ namespace StansAssets.Plugins.Editor
         }
 
         /// <summary>
+        /// Container flex grow property.
+        /// </summary>
+        public StyleFloat ContainerFlexGrow => m_TabsContainer.contentContainer.style.flexGrow;
+
+        /// <summary>
         /// Refresh current tab
         /// </summary>
         public void RefreshActiveTab()

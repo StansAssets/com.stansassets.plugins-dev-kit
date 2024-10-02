@@ -51,6 +51,7 @@ namespace StansAssets.Plugins
 
             //TODO use Undo
             EditorUtility.SetDirty(Instance);
+            AssetDatabase.SaveAssetIfDirty(Instance);
 #endif
         }
 

@@ -136,8 +136,13 @@ namespace StansAssets.Plugins.Editor
         {
             foreach (var layout in m_TabsLayout) layout.OnLayoutEnable();
 
+            #if UNITY_2021_3_OR_NEWER
+            m_ToolbarSearchTextFieldStyle = GUI.skin.FindStyle("ToolbarSearchTextField");
+            m_ToolbarSearchCancelButtonStyle = GUI.skin.FindStyle("ToolbarSearchCancelButton");
+            #else
             m_ToolbarSearchTextFieldStyle = GUI.skin.FindStyle("ToolbarSeachTextField");
             m_ToolbarSearchCancelButtonStyle = GUI.skin.FindStyle("ToolbarSeachCancelButton");
+            #endif
 
             m_DocumentationLink = new IMGUIHyperLabel(new GUIContent("Go To Documentation"), EditorStyles.miniLabel);
             m_DocumentationLink.SetMouseOverColor(SettingsWindowStyles.SelectedElementColor);
